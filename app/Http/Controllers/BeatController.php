@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Beat;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class BeatController extends Controller
@@ -80,7 +81,9 @@ class BeatController extends Controller
             );
     
             $validator=Validator::make($request->all(),$rules);
-            if($validator->fails()){ return $validator->errors();}
+            if($validator->fails()){ 
+                Log::error('Register validation fails');
+                return $validator->errors();}
             if($request->file('free_file') || $request->file('premium_file')) {
 
                 $freeName = $request->file('free_file')->getClientOriginalName();
@@ -95,10 +98,8 @@ class BeatController extends Controller
                 $mybeat->premium_file = '/storage/'.$premiumPath;
                 $mybeat->save();
                 
-
             }
             
-    
             $response = ["message" =>'Nouveau Beat',"content"=>$mybeat];
             return response($response, Response::HTTP_OK);
         }

@@ -8,7 +8,7 @@ cmd to install
 4. php artisan passport:client --personal
 
 
-Link for SWAGGER 
+Link for SWAGGER : http://localhost:8000/api/documentation#/
 
 
 ## License

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -75,7 +76,9 @@ class PostController extends Controller
         );
 
         $validator=Validator::make($request->all(),$rules);
-        if($validator->fails()){ return $validator->errors();}
+        if($validator->fails()){ 
+            Log::error('Register validation fails');
+            return $validator->errors();}
 
         $mypost = new Post();
         $mypost->slug = $request->slug;

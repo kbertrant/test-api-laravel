@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -124,17 +125,19 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
+            Log::error('Register validation fails');
             return response()->json([
                 'errors' => $validator->errors()
             ], 422);
         }
 
         if(! auth()->attempt($requestData)){
+            Log::error('Register authorization fails');
             return response()->json(['error' => 'UnAuthorised Access'], 401);
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
+        Log::info('Register OK');
         return response(['user' => auth()->user(), 'access_token' => $accessToken]);
     }
 

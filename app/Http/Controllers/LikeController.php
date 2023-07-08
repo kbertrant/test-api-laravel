@@ -7,6 +7,7 @@ use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class LikeController extends Controller
@@ -25,7 +26,7 @@ class LikeController extends Controller
         * @OA\Post(
         * path="/api/like/post",
         * operationId="LikePost",
-        * tags={"Post"},
+        * tags={"Like"},
         * summary="Like a post",
         * description="Like a post here",
         *     @OA\RequestBody(
@@ -67,7 +68,9 @@ class LikeController extends Controller
             'user_id' =>"required"
         );
         $validator=Validator::make($request->all(),$rules);
-        if($validator->fails()){ return $validator->errors();}
+        if($validator->fails()){ 
+            Log::error('Register validation fails');
+            return $validator->errors();}
 
         $post = Post::find($request->post_id);	
         $like = new Like();
@@ -84,7 +87,7 @@ class LikeController extends Controller
         * @OA\Post(
         * path="/api/like/beat",
         * operationId="LikeBeat",
-        * tags={"Beat"},
+        * tags={"Like"},
         * summary="Like a beat",
         * description="Like a beat here",
         *     @OA\RequestBody(
