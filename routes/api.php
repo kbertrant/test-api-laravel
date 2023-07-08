@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BeatController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +21,16 @@ use App\Http\Controllers\LikeController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/store/post', [PostController::class,'store'])->name('store.poster');
-Route::post('/store/beat', [BeatController::class,'store'])->name('store.beat');
-
-Route::post('/like/post', [LikeController::class,'likePost'])->name('like.post');
-Route::post('/like/beat', [LikeController::class,'likeBeat'])->name('like.beat');
-    
 // routes/api.php
 Route::middleware('auth:api')->group( function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    
+    Route::post('/store/post', [PostController::class,'store'])->name('store.poster');
+    Route::post('/store/beat', [BeatController::class,'store'])->name('store.beat');
+
+    Route::post('/like/post', [LikeController::class,'likePost'])->name('like.post');
+    Route::post('/like/beat', [LikeController::class,'likeBeat'])->name('like.beat');
+    Route::post('/store/comment', [CommentController::class,'store'])->name('store.comm');
+    
 });
 

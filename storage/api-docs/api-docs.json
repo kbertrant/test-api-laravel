@@ -294,10 +294,76 @@
                 }
             }
         },
+        "/api/store/comment": {
+            "post": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Add a comment",
+                "description": "Add new comment here",
+                "operationId": "AddComment",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "comment",
+                                    "post_id"
+                                ],
+                                "properties": {
+                                    "comment": {
+                                        "type": "text"
+                                    },
+                                    "post_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Register Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/like/post": {
             "post": {
                 "tags": [
-                    "Post"
+                    "Like"
                 ],
                 "summary": "Like a post",
                 "description": "Like a post here",
@@ -363,7 +429,7 @@
         "/api/like/beat": {
             "post": {
                 "tags": [
-                    "Beat"
+                    "Like"
                 ],
                 "summary": "Like a beat",
                 "description": "Like a beat here",
